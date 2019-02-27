@@ -12,19 +12,20 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 {
     public class AnimalController : Controller
     {
+        public IMongoDatabase database;
         public AnimalController()
         {
-        }
+            var connectionString = Properties.Settings.Default.mongoConnection;
+            var client = new MongoClient (connectionString);
+            database = client.GetDatabase(Properties.Settings.Default.databaseName);
+       }
 
 
         // GET: Animal
-        public ActionResult Index()
+        public JsonResult Index()
         {
-            var connectionString = ConfigurationManager.AppSettings.Get("mongoConnection");
-            var client = new MongoClient (connectionString);
-            var database = client.GetDatabase(ConfigurationManager.AppSettings.Get("databaseName"));
             var animales = database.GetCollection<Animales>("animales");
-            var res = database.RunCommand<BsonDocument>(BsonDocument.Parse("{ dbStats: 1, scale: 1024 }"));
+            var res = Json (new { id = 1, hello = "world" } );
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
