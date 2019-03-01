@@ -1,4 +1,5 @@
 ﻿using Fidelitas.NoSql.PrimerEjemplo.Collections;
+using Fidelitas.NoSql.PrimerEjemplo.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -12,6 +13,7 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 {
     public class AnimalController : Controller
     {
+        /*
         public IMongoDatabase database;
         public AnimalController()
         {
@@ -19,14 +21,15 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
             var client = new MongoClient (connectionString);
             database = client.GetDatabase(Properties.Settings.Default.databaseName);
        }
+       */
+        private ContextoMongo elContexto = new ContextoMongo();
 
 
         // GET: Animal
-        public JsonResult Index()
+        public ActionResult Index()
         {
-            var animales = database.GetCollection<Animales>("animales");
-            var res = Json (new { id = 1, hello = "world" } );
-            return Json(res, JsonRequestBehavior.AllowGet);
+            var animales = elContexto.LosAnimales;
+            return View();
         }
 
         // GET: Animal/Details/5
@@ -47,7 +50,8 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                var animales = elContexto.LosAnimales;
+                animales.InsertOne(laMascota);
 
                 return RedirectToAction("Index");
             }
