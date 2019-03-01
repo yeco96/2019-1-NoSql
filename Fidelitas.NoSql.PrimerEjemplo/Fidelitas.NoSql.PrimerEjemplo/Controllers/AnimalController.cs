@@ -29,7 +29,8 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
         public ActionResult Index()
         {
             var animales = elContexto.LosAnimales;
-            return View();
+            var losAnimalitos = animales.AsQueryable().ToList();
+            return View(losAnimalitos);
         }
 
         // GET: Animal/Details/5
