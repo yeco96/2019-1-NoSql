@@ -21,17 +21,17 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Collections
       */
     public class Animales
     {
-        ObjectId _id;
-        string Nombre;
-        DateTime fecha;
-        string Tipo;
-        string Dueno;
-        IList <Tratamiento> tratamiento;
-    }
+        public ObjectId _id { get; set; }
+        public string Nombre { get; set; }
+        public DateTime fecha { get; set; }
+        public string Tipo { get; set; }
+        public string Dueno { get; set; }
+        public IList<Tratamiento> tratamiento { get; set; }
+}
     public class Tratamiento
     {
-        string Tipo;
-        DateTime Fecha;
-        decimal precio;
+        public string Tipo { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal precio { get; set; }
     }
 }

@@ -36,14 +36,14 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
         }
 
         // GET: Animal/Create
-        public ActionResult Create()
+        public ActionResult Insertar()
         {
             return View();
         }
 
         // POST: Animal/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Insertar(Animales laMascota)
         {
             try
             {

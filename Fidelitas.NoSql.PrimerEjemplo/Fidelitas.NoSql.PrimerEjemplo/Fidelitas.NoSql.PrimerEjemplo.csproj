@@ -220,6 +220,7 @@
     <Content Include="Views\Home\SayHelloToSomebody.cshtml" />
     <Content Include="Views\Home\ShowMessageFromSomebody.cshtml" />
     <Content Include="Views\Animal\Index.cshtml" />
+    <Content Include="Views\Animal\Insertar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
