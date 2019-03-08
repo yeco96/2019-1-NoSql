@@ -1,4 +1,6 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +26,8 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Collections
     [MetadataType(typeof(AnimalesMetadata))]
     public class Animales
     {
-        public ObjectId _id { get; set; }
+        [BsonId(IdGenerator = typeof(StringObjectIdGenerator))] [BsonRepresentation(BsonType.ObjectId)]
+        public string _id { get; set; }
         public string Nombre { get; set; }
         public DateTime fecha { get; set; }
         public string Tipo { get; set; }

@@ -38,6 +38,15 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 
         private ContextoMongo elContexto = new ContextoMongo();
 
+        public ActionResult LosTratamientos(string id)
+        {
+            var animales = elContexto.LosAnimales;
+            //var filter = Builders<Animales>.Filter.Eq(x => x._id, id);
+
+            var elAnimalito = animales.Find<Animales>(a => a._id == id).FirstOrDefault();
+            return View(elAnimalito.tratamiento);
+        }
+
 
         // GET: Animal
         public ActionResult Index()
@@ -66,6 +75,7 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
             try
             {
                 var animales = elContexto.LosAnimales;
+                laMascota.tratamiento = new List<Tratamiento> ();
                 animales.InsertOne(laMascota);
 
                 return RedirectToAction("Index");

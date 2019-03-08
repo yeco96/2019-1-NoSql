@@ -222,6 +222,7 @@
     <Content Include="Views\Home\ShowMessageFromSomebody.cshtml" />
     <Content Include="Views\Animal\Insertar.cshtml" />
     <Content Include="Views\Animal\Index.cshtml" />
+    <Content Include="Views\Animal\LosTratamientos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
