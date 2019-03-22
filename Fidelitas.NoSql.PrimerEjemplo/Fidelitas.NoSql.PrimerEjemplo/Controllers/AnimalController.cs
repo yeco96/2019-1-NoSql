@@ -53,15 +53,17 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
         {
             var animales = elContexto.LosAnimales;
             var losAnimalitos = animales.AsQueryable();
-            IEnumerable<Animales> laListaFiltrada = new List<Animales>();
             if (!String.IsNullOrEmpty(searchString))
             {
+                IEnumerable<Animales> laListaFiltrada = new List<Animales>();
                 laListaFiltrada = losAnimalitos.Where(
-                    s => s.Nombre.Contains(searchString)
-                    || s.Dueno.Contains(searchString));
+                    s => s.Nombre.ToLower().Contains(searchString.ToLower())
+                    || s.Dueno.ToUpper().Contains(searchString.ToUpper()));
+                laListaFiltrada.ToList();
+                return View(laListaFiltrada);
             }
-            laListaFiltrada.ToList();
-            return View(laListaFiltrada);
+            else
+                return View(losAnimalitos.ToList());
         }
 
         // GET: Animal/Details/5
