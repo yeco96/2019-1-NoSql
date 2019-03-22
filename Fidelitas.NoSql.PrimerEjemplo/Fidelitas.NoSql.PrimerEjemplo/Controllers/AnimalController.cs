@@ -49,11 +49,19 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 
 
         // GET: Animal
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var animales = elContexto.LosAnimales;
-            var losAnimalitos = animales.AsQueryable().ToList();
-            return View(losAnimalitos);
+            var losAnimalitos = animales.AsQueryable();
+            IEnumerable<Animales> laListaFiltrada = new List<Animales>();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                laListaFiltrada = losAnimalitos.Where(
+                    s => s.Nombre.Contains(searchString)
+                    || s.Dueno.Contains(searchString));
+            }
+            laListaFiltrada.ToList();
+            return View(laListaFiltrada);
         }
 
         // GET: Animal/Details/5

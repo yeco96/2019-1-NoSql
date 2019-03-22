@@ -10,6 +10,15 @@
 <p>
     @Html.ActionLink("Create New", "Insertar")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>Acciones</th>
@@ -31,33 +40,34 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-        <td>
-            @Html.ActionLink("Ver Tratamientos", "LosTratamientos", new {  id=item._id.ToString()  }) |
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-            @Html.HiddenFor(modelItem => item.tratamiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dueno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Peso)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+            <td>
+                @Html.ActionLink("Ver Tratamientos", "LosTratamientos", new { id = item._id.ToString() }) |
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+                @Html.HiddenFor(modelItem => item.tratamiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dueno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Peso)
+            </td>
+        </tr>
+    }
 
 </table>
