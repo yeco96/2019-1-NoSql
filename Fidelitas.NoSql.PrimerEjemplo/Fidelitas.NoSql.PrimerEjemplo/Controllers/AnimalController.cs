@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 {
@@ -49,8 +50,21 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 
 
         // GET: Animal
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string currentFilter, string searchString, int? page)
         {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
             var animales = elContexto.LosAnimales;
             var losAnimalitos = animales.AsQueryable();
             if (!String.IsNullOrEmpty(searchString))
@@ -59,11 +73,11 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
                 laListaFiltrada = losAnimalitos.Where(
                     s => s.Nombre.ToLower().Contains(searchString.ToLower())
                     || s.Dueno.ToUpper().Contains(searchString.ToUpper()));
-                laListaFiltrada.ToList();
+                laListaFiltrada.ToPagedList(pageNumber, pageSize);
                 return View(laListaFiltrada);
             }
             else
-                return View(losAnimalitos.ToList());
+                return View(losAnimalitos.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Animal/Details/5

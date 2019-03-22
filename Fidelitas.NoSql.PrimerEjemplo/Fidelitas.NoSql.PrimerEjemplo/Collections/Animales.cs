@@ -23,7 +23,7 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Collections
             "precio" : 500
 
       */
-    [MetadataType(typeof(AnimalesMetadata))]
+    //[MetadataType(typeof(AnimalesMetadata))]
     public class Animales
     {
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))] [BsonRepresentation(BsonType.ObjectId)]
