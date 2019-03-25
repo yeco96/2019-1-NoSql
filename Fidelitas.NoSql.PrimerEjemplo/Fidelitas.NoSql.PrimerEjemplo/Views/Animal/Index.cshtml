@@ -46,9 +46,9 @@
     {
         <tr>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new {  id=item._id }) |
+                @Html.ActionLink("Details", "Details", new {  id=item._id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item._id })
             </td>
             <td>
                 @Html.ActionLink("Ver Tratamientos", "LosTratamientos", new { id = item._id.ToString() }) |

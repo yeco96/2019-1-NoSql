@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using MongoDB.Driver.Linq;
 
 namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 {
@@ -68,20 +69,14 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
             var animales = elContexto.LosAnimales;
             var losAnimalitos = animales.AsQueryable();
             if (!String.IsNullOrEmpty(searchString))
-            {
-                IEnumerable<Animales> laListaFiltrada = new List<Animales>();
-                laListaFiltrada = losAnimalitos.Where(
+                losAnimalitos = losAnimalitos.Where(
                     s => s.Nombre.ToLower().Contains(searchString.ToLower())
                     || s.Dueno.ToUpper().Contains(searchString.ToUpper()));
-                laListaFiltrada.ToPagedList(pageNumber, pageSize);
-                return View(laListaFiltrada);
-            }
-            else
-                return View(losAnimalitos.ToPagedList(pageNumber, pageSize));
+            return View(losAnimalitos.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Animal/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             return View();
         }
@@ -111,14 +106,14 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
         }
 
         // GET: Animal/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             return View();
         }
 
         // POST: Animal/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, FormCollection collection)
         {
             try
             {
@@ -133,14 +128,14 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
         }
 
         // GET: Animal/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             return View();
         }
 
         // POST: Animal/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
             {
