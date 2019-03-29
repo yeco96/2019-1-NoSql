@@ -15,9 +15,9 @@
 
 @using (Html.BeginForm())
 {
+    string buscar = ViewBag.CurrentFilter;
     <p>
-        Find by name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
+        Find by name: @Html.TextBox("SearchString", buscar)  <input type="submit" value="Search" />
     </p>
 }
 
@@ -26,10 +26,10 @@
         <th>Acciones</th>
         <th>Tratamientos</th>
         <th>
-            @Html.DisplayName("Nombre")
+            @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, page = Model.PageNumber, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayName("fecha")
+            @Html.ActionLink("Fecha", "Index", new { sortOrder = ViewBag.DateSortParm, page = Model.PageNumber, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.DisplayName("Tipo")
@@ -75,5 +75,4 @@
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, currentFilter = ViewBag.CurrentFilter }))
+@Html.PagedListPager(Model, page => Url.Action("Index",new { page, currentFilter = ViewBag.CurrentFilter }))

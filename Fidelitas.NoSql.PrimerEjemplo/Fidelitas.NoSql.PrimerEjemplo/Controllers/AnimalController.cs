@@ -13,8 +13,11 @@ using MongoDB.Driver.Linq;
 
 namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 {
+
     public class AnimalController : Controller
     {
+
+        public string searchStringM = "";
         /*
          * {
     "_id" : ObjectId("5c7890162e132d0a74ea1316"),
@@ -51,8 +54,12 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
 
 
         // GET: Animal
-        public ActionResult Index(string currentFilter, string searchString, int? page)
+        public ActionResult Index(string currentFilter, string searchString, int? page, string sortOrder)
         {
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+     
             if (searchString != null)
             {
                 page = 1;
@@ -62,16 +69,40 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Controllers
                 searchString = currentFilter;
             }
 
+
             ViewBag.CurrentFilter = searchString;
+            
+
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
             var animales = elContexto.LosAnimales;
             var losAnimalitos = animales.AsQueryable();
+
             if (!String.IsNullOrEmpty(searchString))
-                losAnimalitos = losAnimalitos.Where(
-                    s => s.Nombre.ToLower().Contains(searchString.ToLower())
-                    || s.Dueno.ToUpper().Contains(searchString.ToUpper()));
+            {
+                losAnimalitos = losAnimalitos.Where(s => s.Nombre.ToLower().Contains(searchString.ToLower()) || s.Dueno.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    losAnimalitos = losAnimalitos.OrderByDescending(s => s.Nombre);
+                    break;
+                case "Date":
+                    losAnimalitos = losAnimalitos.OrderBy(s => s.fecha);
+                    break;
+                case "date_desc":
+                    losAnimalitos = losAnimalitos.OrderByDescending(s => s.fecha);
+                    break;
+                default:
+                    losAnimalitos = losAnimalitos.OrderBy(s => s.Nombre);
+                    break;
+            }
+
+
+
             return View(losAnimalitos.ToPagedList(pageNumber, pageSize));
         }
 
