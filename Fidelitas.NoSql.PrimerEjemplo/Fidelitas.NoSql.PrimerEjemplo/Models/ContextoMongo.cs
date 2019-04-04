@@ -13,7 +13,11 @@ namespace Fidelitas.NoSql.PrimerEjemplo.Models
         public ContextoMongo()
         {
             var connectionString = Properties.Settings.Default.mongoConnection;
-            var client = new MongoClient(connectionString);
+
+            var client = new MongoClient("mongodb+srv://yeco96:k0nsum0.Respet0@cluster0-6sxzr.azure.mongodb.net/test?retryWrites=true");
+            //var database = client.GetDatabase("test");
+
+            
             database = client.GetDatabase(Properties.Settings.Default.databaseName);
         }
 
